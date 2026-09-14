@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="RSVP_App.AddUserPage"
+    Title="Add User">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30"
+            Spacing="15">
+
+            <Label
+                Text="Add User"
+                FontSize="28"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+
+            <Label Text="First Name" />
+
+            <Entry
+                x:Name="txtFirstName"
+                Placeholder="Enter first name" />
+
+            <Label Text="Last Name" />
+
+            <Entry
+                x:Name="txtLastName"
+                Placeholder="Enter last name" />
+
+            <Label Text="Email" />
+
+            <Entry
+                x:Name="txtEmail"
+                Placeholder="Enter email"
+                Keyboard="Email" />
+
+            <Label Text="User Name" />
+
+            <Entry
+                x:Name="txtUserName"
+                Placeholder="Enter user name" />
+
+            <Label Text="Password" />
+
+            <Entry
+                x:Name="txtPassword"
+                Placeholder="Enter password"
+                IsPassword="True" />
+
+            <Grid
+                ColumnDefinitions="*,*"
+                ColumnSpacing="10">
+
+                <Button
+                    Grid.Column="0"
+                    Text="Add User"
+                    Clicked="OnAddUserClicked" />
+
+                <Button
+                    Grid.Column="1"
+                    Text="Cancel"
+                    Clicked="OnCancelClicked" />
+
+            </Grid>
+
+            <Label
+                x:Name="lblMessage"
+                FontSize="18" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

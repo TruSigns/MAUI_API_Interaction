@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="RSVP_App.HomePage"
+    Title="Home">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30"
+            Spacing="15">
+
+            <Label
+                Text="RSVP Home"
+                FontSize="28"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+
+            <Label
+                x:Name="lblWelcome"
+                FontSize="20"
+                HorizontalOptions="Center" />
+
+            <Button
+                Text="All Events"
+                Clicked="OnAllEventsClicked" />
+
+            <Button
+                x:Name="btnAttending"
+                Text="Events I Am Attending"
+                Clicked="OnAttendingClicked" />
+
+            <Button
+                x:Name="btnHosting"
+                Text="Events I Am Hosting"
+                Clicked="OnHostingClicked" />
+
+            <Button
+                Text="Add Event"
+                Clicked="OnAddEventClicked" />
+
+            <Button
+                Text="Add User"
+                Clicked="OnAddUserClicked" />
+
+            <Button
+                Text="Logout"
+                Clicked="OnLogoutClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

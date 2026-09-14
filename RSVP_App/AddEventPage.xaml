@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="RSVP_App.AddEventPage"
+    Title="Add Event">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30"
+            Spacing="15">
+
+            <Label
+                Text="Add Event"
+                FontSize="28"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+
+            <Label Text="Event Name" />
+
+            <Entry
+                x:Name="txtEventName"
+                Placeholder="Enter event name" />
+
+            <Label Text="Date" />
+
+            <Entry
+                x:Name="txtDate"
+                Placeholder="Enter date" />
+
+            <Label Text="Time" />
+
+            <Entry
+                x:Name="txtTime"
+                Placeholder="Enter time" />
+
+            <Label Text="Location" />
+
+            <Entry
+                x:Name="txtLocation"
+                Placeholder="Enter location" />
+
+            <Label Text="Description" />
+
+            <Editor
+                x:Name="txtDescription"
+                Placeholder="Enter description"
+                HeightRequest="120" />
+
+            <Grid
+                ColumnDefinitions="*,*"
+                ColumnSpacing="10">
+
+                <Button
+                    Grid.Column="0"
+                    Text="Add Event"
+                    Clicked="OnAddEventClicked" />
+
+                <Button
+                    Grid.Column="1"
+                    Text="Cancel"
+                    Clicked="OnCancelClicked" />
+
+            </Grid>
+
+            <Label
+                x:Name="lblMessage"
+                FontSize="18" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
