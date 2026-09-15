@@ -1,37 +1,58 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:RSVP_App.Models"
     x:Class="RSVP_App.EventsPage"
     Title="Events">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30"
-            Spacing="15">
+    <Grid
+        Padding="30"
+        RowDefinitions="Auto,*,Auto"
+        RowSpacing="15">
 
-            <Label
-                x:Name="lblPageTitle"
-                FontSize="28"
-                FontAttributes="Bold"
-                HorizontalOptions="Center" />
+        <Label
+            Grid.Row="0"
+            x:Name="lblPageTitle"
+            FontSize="28"
+            FontAttributes="Bold"
+            HorizontalOptions="Center" />
 
-            <Button
-                Text="Birthday Dinner"
-                Clicked="OnBirthdayClicked" />
+        <CollectionView
+            Grid.Row="1"
+            x:Name="cvEvents"
+            SelectionMode="Single"
+            SelectionChanged="OnEventSelected">
 
-            <Button
-                Text="Software Meetup"
-                Clicked="OnMeetupClicked" />
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Event">
 
-            <Button
-                Text="Family Cookout"
-                Clicked="OnCookoutClicked" />
+                    <Grid
+                        Padding="15"
+                        RowDefinitions="Auto,Auto">
 
-            <Button
-                Text="Go Back"
-                Clicked="OnGoBackClicked" />
+                        <Label
+                            Text="{Binding Name}"
+                            FontSize="20"
+                            FontAttributes="Bold" />
 
-        </VerticalStackLayout>
-    </ScrollView>
+                        <Label
+                            Grid.Row="1"
+                            Text="{Binding Date, StringFormat='{0:MM/dd/yyyy}'}" />
+
+                    </Grid>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <Button
+            Grid.Row="2"
+            Text="Go Back"
+            Clicked="OnGoBackClicked" />
+
+    </Grid>
+
 </ContentPage>

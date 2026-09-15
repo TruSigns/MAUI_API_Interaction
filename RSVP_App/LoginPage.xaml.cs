@@ -1,46 +1,66 @@
+using RSVP_App.DataAccess;
+
 namespace RSVP_App;
 
 public partial class LoginPage : ContentPage
 {
+    private readonly AppDatabase database;
+
     public LoginPage()
     {
         InitializeComponent();
+
+        database = new AppDatabase();
     }
 
-    private async void OnLoginClicked(object sender, EventArgs e)
+    private async void OnLoginClicked(
+        object sender,
+        EventArgs e)
     {
-        string userName = txtUserName.Text ?? string.Empty;
-        string password = txtPassword.Text ?? string.Empty;
-
-        if (userName == "Ruffin" && password == "Password1")
+        if (string.IsNullOrWhiteSpace(txtUserName.Text) ||
+            string.IsNullOrWhiteSpace(txtPassword.Text))
         {
-            SessionState.IsGuest = false;
-            SessionState.UserName = userName;
-            SessionState.Name = "Maurice Ruffin";
-            SessionState.Email = "maurice@example.com";
+            lblMessage.Text =
+                "Enter your user name and password.";
 
-            lblMessage.Text = string.Empty;
-
-            await Navigation.PushAsync(new HomePage());
+            return;
         }
-        else
+
+        var user = await database.LoginAsync(
+            txtUserName.Text,
+            txtPassword.Text);
+
+        if (user is null)
         {
-            lblMessage.Text = "Invalid user name or password.";
-        }
-    }
+            lblMessage.Text =
+                "Invalid user name or password.";
 
-    private async void OnGuestClicked(object sender, EventArgs e)
-    {
-        SessionState.IsGuest = true;
-        SessionState.UserName = "Guest";
-        SessionState.Name = string.Empty;
-        SessionState.Email = string.Empty;
+            return;
+        }
+
+        SessionState.CurrentUser = user;
+        SessionState.IsGuest = false;
+
+        lblMessage.Text = string.Empty;
 
         await Navigation.PushAsync(new HomePage());
     }
 
-    private async void OnAddUserClicked(object sender, EventArgs e)
+    private async void OnGuestClicked(
+        object sender,
+        EventArgs e)
     {
-        await Navigation.PushAsync(new AddUserPage());
+        SessionState.CurrentUser = null;
+        SessionState.IsGuest = true;
+
+        await Navigation.PushAsync(new HomePage());
+    }
+
+    private async void OnAddUserClicked(
+        object sender,
+        EventArgs e)
+    {
+        await Navigation.PushAsync(
+            new AddUserPage());
     }
 }

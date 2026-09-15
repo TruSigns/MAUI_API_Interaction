@@ -1,48 +1,72 @@
+using RSVP_App.DataAccess;
+using RSVP_App.Models;
+
 namespace RSVP_App;
 
 public partial class EventsPage : ContentPage
 {
-    public EventsPage(string pageTitle)
+    private readonly AppDatabase database;
+
+    private readonly string eventType;
+
+    public EventsPage(string eventType)
     {
         InitializeComponent();
 
-        lblPageTitle.Text = pageTitle;
+        database = new AppDatabase();
+
+        this.eventType = eventType;
+
+        lblPageTitle.Text = eventType;
+
+        LoadEvents();
     }
 
-    private async void OnBirthdayClicked(object sender, EventArgs e)
+    private async void LoadEvents()
     {
-        await Navigation.PushAsync(
-            new EventDetailsPage(
-                "Birthday Dinner",
-                "September 25, 2026",
-                "6:00 PM",
-                "Raleigh, NC",
-                "Maurice Ruffin"));
+        List<Event> events;
+
+        if (eventType == "Hosting" &&
+            SessionState.CurrentUser is not null)
+        {
+            events =
+                await database.GetHostedEventsAsync(
+                    SessionState.CurrentUser.ID);
+        }
+        else if (
+            eventType == "Attending" &&
+            SessionState.CurrentUser is not null)
+        {
+            events =
+                await database.GetAttendingEventsAsync(
+                    SessionState.CurrentUser.ID);
+        }
+        else
+        {
+            events =
+                await database.GetEventsAsync();
+        }
+
+        cvEvents.ItemsSource = events;
     }
 
-    private async void OnMeetupClicked(object sender, EventArgs e)
+    private async void OnEventSelected(
+        object sender,
+        SelectionChangedEventArgs e)
     {
-        await Navigation.PushAsync(
-            new EventDetailsPage(
-                "Software Meetup",
-                "October 10, 2026",
-                "7:00 PM",
-                "Durham, NC",
-                "Maurice Ruffin"));
+        if (e.CurrentSelection.FirstOrDefault()
+            is Event eventItem)
+        {
+            await Navigation.PushAsync(
+                new EventDetailsPage(eventItem));
+
+            cvEvents.SelectedItem = null;
+        }
     }
 
-    private async void OnCookoutClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(
-            new EventDetailsPage(
-                "Family Cookout",
-                "October 17, 2026",
-                "3:00 PM",
-                "Raleigh, NC",
-                "Maurice Ruffin"));
-    }
-
-    private async void OnGoBackClicked(object sender, EventArgs e)
+    private async void OnGoBackClicked(
+        object sender,
+        EventArgs e)
     {
         await Navigation.PopAsync();
     }

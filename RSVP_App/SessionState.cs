@@ -1,20 +1,20 @@
-namespace RSVP_App;
+using RSVP_App.Models;
 
-public static class SessionState
+namespace RSVP_App
 {
-    public static bool IsGuest { get; set; }
-
-    public static string UserName { get; set; } = string.Empty;
-
-    public static string Name { get; set; } = string.Empty;
-
-    public static string Email { get; set; } = string.Empty;
-
-    public static void Clear()
+    public static class SessionState
     {
-        IsGuest = false;
-        UserName = string.Empty;
-        Name = string.Empty;
-        Email = string.Empty;
+        public static User? CurrentUser { get; set; }
+
+        public static bool IsGuest { get; set; }
+
+        public static bool IsLoggedIn =>
+            CurrentUser is not null;
+
+        public static void Clear()
+        {
+            CurrentUser = null;
+            IsGuest = false;
+        }
     }
 }
