@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MauiBasicAuth.LoginPage"
+    Title="Login">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="30"
+            Spacing="20">
+
+            <Label
+                Text="Maurice Ruffin"
+                FontSize="28"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="Wk 4 Performance Assessment"
+                FontSize="20"
+                HorizontalOptions="Center" />
+
+            <Label Text="User Name" />
+
+            <Entry
+                Text="{Binding UserName}"
+                Placeholder="Enter User Name" />
+
+            <Label Text="Password" />
+
+            <Entry
+                Text="{Binding Password}"
+                Placeholder="Enter Password"
+                IsPassword="True" />
+
+            <Grid
+                ColumnDefinitions="*,*"
+                ColumnSpacing="10">
+
+                <Button
+                    Grid.Column="0"
+                    Text="Login"
+                    Command="{Binding LoginCommand}" />
+
+                <Button
+                    Grid.Column="1"
+                    Text="Cancel"
+                    Command="{Binding CancelCommand}" />
+
+            </Grid>
+
+            <Label
+                Text="{Binding Message}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

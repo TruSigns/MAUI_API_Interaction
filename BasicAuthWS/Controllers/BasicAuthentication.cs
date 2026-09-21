@@ -37,8 +37,8 @@ namespace BasicAuthWS.Controllers
                 var parts = credentials.Split(':');
 
                 if (parts.Length != 2 ||
-                    parts[0].ToLower() != "instructor01" ||
-                    parts[1] != "Password01")
+                    parts[0] != "Ruffin01" ||
+                    parts[1] != "Password1")
                 {
                     context.Result = new UnauthorizedResult();
                     return;
